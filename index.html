@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Craft Technology | Master In-Demand Tech Skills</title>
+    <!-- Open Graph for SEO/Sharing -->
+    <meta property="og:title" content="Skill Craft Technology - Master In-Demand Tech Skills">
+    <meta property="og:description" content="Personalized learning paths and real-time feedback to help your team succeed.">
+    <meta property="og:type" content="website">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons for clean SVGs -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        /* Custom Tailwind Configuration (Optional, but good practice for project setup) */
+        :root {
+            --color-base: #0f1220;
+            --color-surface: #121525;
+            --color-accent: #00bcd4; 
+            --color-text: #e2e8f0;
+            --color-subtle: #94a3b8;
+        }
+
+       
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-base);
+            color: var(--color-text);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- 1. HERO BACKDROP STYLING & ANIMATIONS --- */
+
+        /* Layer 1: Animated Gradient */
+        .hero-backdrop-gradient::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.5;
+            background: radial-gradient(circle at 10% 20%, #1a203a 0%, transparent 40%),
+                        linear-gradient(135deg, #121525 0%, #0f1220 50%, #0d101a 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 40s ease infinite alternate;
+            z-index: -2;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Layer 2: SVG Blobs (Styled and positioned via JS/CSS) */
+        .blob-shape {
+            filter: blur(100px); /* Softly blurred */
+            opacity: 0.2; 
+            transition: transform 0.2s ease-out; 
+            will-change: transform;
+        }
+        
+        /* Layer 3: Particle Field (Styled via JS/CSS) */
+        .particle {
+            position: absolute;
+            background-color: var(--color-accent);
+            border-radius: 50%;
+            opacity: 0.5;
+            pointer-events: none;
+            will-change: transform, opacity;
+            transition: opacity 0.5s;
+        }
+
+        /* Glassmorphism Effect for Hero Card */
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Navigation Link Hover Effect */
+        .nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: var(--color-accent);
+            transition: width 0.3s ease-in-out;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Chat Bot Styling */
+        #chat-panel {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 187, 212, 0.5);
+            max-height: 80vh;
+        }
+
+        .chat-message-user {
+            background-color: #00bcd4;
+            color: var(--color-base);
+        }
+        .chat-message-ai {
+            background-color: var(--color-surface);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        
+        @media (prefers-reduced-motion: reduce) {
+            .hero-backdrop-gradient::before {
+                animation: none;
+                background-size: cover; 
+                background-position: 50% 50%;
+            }
+            .particle {
+                opacity: 0 !important; 
+                animation: none !important;
+            }
+            .blob-shape {
+                transition: none !important; 
+                transform: none !important;
+            }
+        }
+
+        .z-9999 { z-index: 9999; }
+        .z-9998 { z-index: 9998; }
+
+        /* Mobile Menu Scroll Lock */
+        .mobile-menu-open {
+            overflow: hidden;
+            height: 100vh;
+        }
+
+    </style>
+</head>
+
+<body class="bg-[var(--color-base)]">
+
+    <!-- Skip-to-content Link for A11y -->
+    <a href="#main-content" class="absolute top-0 left-0 p-3 bg-white text-gray-900 focus:not-sr-only sr-only focus:z-50">Skip to main content</a>
+
+    <!-- Fixed Navigation Bar -->
+    <header id="main-nav" class="fixed w-full top-0 z-50 transition-all duration-300 bg-transparent py-4">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#hero" class="text-2xl font-extrabold text-white tracking-tight rounded-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] p-1">
+                <span class="text-[var(--color-accent)]">Skill</span> Craft
+            </a>
+
+            <!-- Desktop Links -->
+            <ul class="hidden lg:flex space-x-8 items-center" role="menubar">
+                <li><a href="#hero" class="nav-link text-white text-sm font-medium transition duration-300 p-1 active" data-section="hero" role="menuitem">Home</a></li>
+                <li><a href="#solutions" class="nav-link text-white text-sm font-medium transition duration-300 p-1" data-section="solutions" role="menuitem">Solutions</a></li>
+                <li><a href="#how-it-works" class="nav-link text-white text-sm font-medium transition duration-300 p-1" data-section="how-it-works" role="menuitem">How It Works</a></li>
+                <li><a href="#pricing" class="nav-link text-white text-sm font-medium transition duration-300 p-1" data-section="pricing" role="menuitem">Pricing</a></li>
+                <li><a href="#testimonials" class="nav-link text-white text-sm font-medium transition duration-300 p-1" data-section="testimonials" role="menuitem">Testimonials</a></li>
+                <li><a href="#resources" class="nav-link text-white text-sm font-medium transition duration-300 p-1" data-section="resources" role="menuitem">Resources</a></li>
+                <li><a href="#contact" class="nav-link text-white text-sm font-medium transition duration-300 p-1" data-section="contact" role="menuitem">Contact</a></li>
+                <li>
+                    <a href="#contact" class="px-5 py-2 text-sm font-semibold text-[var(--color-base)] bg-[var(--color-accent)] rounded-full transition duration-300 hover:bg-opacity-90 focus:outline-none focus:ring-4 focus:ring-[var(--color-accent)] focus:ring-opacity-50 ml-4" role="menuitem">
+                        Get Started
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Mobile Hamburger -->
+            <button id="mobile-menu-button" class="lg:hidden p-2 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]" aria-expanded="false" aria-controls="mobile-menu-panel" aria-label="Open navigation menu">
+                <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu Panel -->
+    <div id="mobile-menu-panel" class="fixed top-0 left-0 w-full h-full bg-[var(--color-base)] transform -translate-x-full transition-transform duration-300 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+        <div class="p-8">
+            <div class="flex justify-between items-center mb-10">
+                <span class="text-2xl font-extrabold text-white"><span class="text-[var(--color-accent)]">Skill</span> Craft</span>
+                <button id="mobile-menu-close" class="p-2 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]" aria-label="Close navigation menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <ul class="space-y-6 text-xl font-semibold" role="menu">
+                <li><a href="#hero" class="mobile-nav-link block p-2 text-white hover:text-[var(--color-accent)] transition duration-150 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]" role="menuitem">Home</a></li>
+                <li><a href="#solutions" class="mobile-nav-link block p-2 text-white hover:text-[var(--color-accent)] transition duration-150 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]" role="menuitem">Solutions</a></li>
+                <li><a href="#how-it-works" class="mobile-nav-link block p-2 text-white hover:text-[var(--color-accent)] transition duration-150 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]" role="menuitem">How It Works</a></li>
+                <li><a href="#pricing" class="mobile-nav-link block p-2 text-white hover:text-[var(--color-accent)] transition duration-150 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]" role="menuitem">Pricing</a></li>
+                <li><a href="#testimonials" class="mobile-nav-link block p-2 text-white hover:text-[var(--color-accent)] transition duration-150 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]" role="menuitem">Testimonials</a></li>
+                <li><a href="#resources" class="mobile-nav-link block p-2 text-white hover:text-[var(--color-accent)] transition duration-150 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]" role="menuitem">Resources</a></li>
+                <li><a href="#contact" class="mobile-nav-link block p-2 text-white hover:text-[var(--color-accent)] transition duration-150 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]" role="menuitem">Contact</a></li>
+                <li>
+                    <a href="#contact" class="mobile-nav-link block w-full text-center mt-8 px-5 py-3 text-lg font-semibold text-[var(--color-base)] bg-[var(--color-accent)] rounded-lg transition duration-300 hover:bg-opacity-90 focus:outline-none focus:ring-4 focus:ring-[var(--color-accent)] focus:ring-opacity-50" role="menuitem">
+                        Get Started
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <main id="main-content">
+        
+        <!-- ============================================== -->
+        <!-- 1. HERO SECTION (Full Viewport & Animated) -->
+
+        <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden hero-backdrop-gradient">
+            
+            <!-- Layer 2: SVG Blobs Container (Parallax) -->
+            <div id="blob-container" class="absolute inset-0 z-0 opacity-80 pointer-events-none">
+                <svg id="blob-1" class="blob-shape absolute w-[50vw] h-[50vw] sm:w-[35vw] sm:h-[35vw] top-[10%] left-[5%]" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="var(--color-accent)" d="M54.5,-23.1C60.2,0.9,49.2,29.9,29.8,47.4C10.4,64.9,-18.4,81,-36.4,69.5C-54.3,58.1,-61.4,19.2,-53.4,-11.2C-45.3,-41.6,-22.6,-64.5,4.6,-65.8C31.8,-67,63.6,-46.5,54.5,-23.1Z" transform="translate(100 100)" />
+                </svg>
+                <svg id="blob-2" class="blob-shape absolute w-[40vw] h-[40vw] sm:w-[30vw] sm:h-[30vw] bottom-[15%] right-[10%]" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#5be0e5" d="M43.7,-25.1C55.3,-1.9,62.8,29.4,50.7,48.5C38.6,67.6,7,74.5,-21.8,68.9C-50.6,63.2,-81.4,45.1,-84.9,18.8C-88.5,-7.5,-64.8,-41.8,-37.2,-57.1C-9.6,-72.4,22.9,-68.8,43.7,-52.3C64.6,-35.8,83.7,-6.2,80,-1.4C76.3,3.4,49.9,0.7,43.7,-25.1Z" transform="translate(100 100)" />
+                </svg>
+            </div>
+
+            <!-- Layer 3: Particle Field Container (JS populates this) -->
+            <div id="particle-container" class="absolute inset-0 z-10 pointer-events-none"></div>
+
+            <!-- Hero Content Card -->
+            <div class="relative z-20 max-w-5xl mx-auto px-4 text-center py-20 rounded-xl glass-card transition duration-500 hover:shadow-xl hover:shadow-[var(--color-accent)]/10">
+                <span class="inline-block px-3 py-1 mb-4 text-xs font-semibold uppercase text-[var(--color-accent)] bg-white/10 rounded-full tracking-wider">
+                    Future-Proof Your Team
+                </span>
+                <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tighter text-white mb-6 leading-tight">
+                    Master <span class="text-[var(--color-accent)]">In-Demand</span> Tech Skills.
+                </h1>
+                <p class="text-xl text-[var(--color-subtle)] mb-10 max-w-3xl mx-auto">
+                    Skill Craft Technology helps teams master in-demand tech skills with guided, hands-on programs, real-time feedback, and enterprise-grade reporting.
+                </p>
+
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#solutions" class="px-8 py-3 text-lg font-semibold text-[var(--color-base)] bg-[var(--color-accent)] rounded-lg transition duration-300 hover:shadow-lg hover:shadow-[var(--color-accent)]/50 focus:outline-none focus:ring-4 focus:ring-[var(--color-accent)] focus:ring-opacity-50">
+                        Get Started
+                    </a>
+                    <a href="#contact" class="px-8 py-3 text-lg font-semibold text-white border-2 border-[var(--color-accent)] rounded-lg transition duration-300 hover:bg-[var(--color-accent)]/10 focus:outline-none focus:ring-4 focus:ring-[var(--color-accent)] focus:ring-opacity-50">
+                        Book a Demo
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- 2. TRUSTED BY SECTION -->
+   
+        <section class="py-12 bg-[var(--color-surface)]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-xl font-semibold text-[var(--color-subtle)] uppercase mb-8">Trusted by innovation leaders</h2>
+                <div class="flex flex-wrap justify-center items-center gap-8 sm:gap-12 opacity-70">
+                    <!-- Placeholder Logos (use inline SVGs or placeholders) -->
+                    <span class="text-2xl font-bold text-white">LOGO A</span>
+                    <span class="text-2xl font-bold text-white">TECH Corp</span>
+                    <span class="text-2xl font-bold text-white">Innovate</span>
+                    <span class="text-2xl font-bold text-white">FutureX</span>
+                    <span class="text-2xl font-bold text-white">Solution Z</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- 3. SOLUTIONS/FEATURES SECTION -->
+        
+        <section id="solutions" class="py-24 bg-[var(--color-base)]" aria-label="Our Solutions">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl sm:text-5xl font-extrabold text-white mb-4">The Right Path to Mastery</h2>
+                    <p class="text-xl text-[var(--color-subtle)] max-w-3xl mx-auto">Our unique platform combines expert content with practical application to guarantee skill transfer.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Card 1: Personalized Learning -->
+                    <div class="bg-[var(--color-surface)] p-8 rounded-xl border border-white/10 transition duration-300 hover:border-[var(--color-accent)]/50 hover:shadow-2xl hover:shadow-[var(--color-accent)]/10">
+                        <i data-lucide="route" class="w-10 h-10 text-[var(--color-accent)] mb-4"></i>
+                        <h3 class="text-xl font-bold text-white mb-3">Personalized Learning Paths</h3>
+                        <p class="text-[var(--color-subtle)] mb-4">Tailor skill acquisition to individual team needs and career goals.</p>
+                        <ul class="text-sm space-y-2 text-white">
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-[var(--color-accent)] mr-2"></i> Role-based curricula</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-[var(--color-accent)] mr-2"></i> Adaptive content delivery</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Card 2: Real Projects -->
+                    <div class="bg-[var(--color-surface)] p-8 rounded-xl border border-white/10 transition duration-300 hover:border-[var(--color-accent)]/50 hover:shadow-2xl hover:shadow-[var(--color-accent)]/10">
+                        <i data-lucide="code" class="w-10 h-10 text-[var(--color-accent)] mb-4"></i>
+                        <h3 class="text-xl font-bold text-white mb-3">Real-World Projects</h3>
+                        <p class="text-[var(--color-subtle)] mb-4">Hands-on, guided projects that mirror actual engineering challenges.</p>
+                        <ul class="text-sm space-y-2 text-white">
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-[var(--color-accent)] mr-2"></i> Integrated development environments</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-[var(--color-accent)] mr-2"></i> Production-ready code reviews</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Card 3: Real-Time Feedback -->
+                    <div class="bg-[var(--color-surface)] p-8 rounded-xl border border-white/10 transition duration-300 hover:border-[var(--color-accent)]/50 hover:shadow-2xl hover:shadow-[var(--color-accent)]/10">
+                        <i data-lucide="zap" class="w-10 h-10 text-[var(--color-accent)] mb-4"></i>
+                        <h3 class="text-xl font-bold text-white mb-3">Real-Time Feedback Loop</h3>
+                        <p class="text-[var(--color-subtle)] mb-4">Instantaneous performance assessments powered by proprietary AI/ML.</p>
+                        <ul class="text-sm space-y-2 text-white">
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-[var(--color-accent)] mr-2"></i> Automated code quality checks</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-[var(--color-accent)] mr-2"></i> Guided remediation suggestions</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- NEW: Skill Path Generator Section (Gemini Feature 2) -->
+                <div class="mt-20 p-8 bg-[var(--color-surface)] rounded-xl border border-[var(--color-accent)]/30 shadow-inner shadow-[var(--color-accent)]/10">
+                    <h3 class="text-3xl font-extrabold text-white mb-4 flex items-center justify-center">
+                        <i data-lucide="wand-2" class="w-7 h-7 text-[var(--color-accent)] mr-3"></i>
+                        ✨ SkillPath Idea Generator
+                    </h3>
+                    <p class="text-[var(--color-subtle)] text-center mb-6">
+                        Input any technology or skill and let our AI instantly generate a potential mastery roadmap and time estimate.
+                    </p>
+
+                    <div class="max-w-xl mx-auto flex flex-col sm:flex-row gap-4">
+                        <input type="text" id="skill-input" placeholder="e.g., Cloud DevOps with Terraform" class="flex-grow p-4 bg-[var(--color-base)] border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] transition" aria-label="Enter skill to generate path">
+                        <button id="generate-skill-button" class="px-6 py-4 text-sm font-semibold text-[var(--color-base)] bg-[var(--color-accent)] rounded-lg transition duration-300 hover:bg-opacity-90 focus:outline-none focus:ring-4 focus:ring-[var(--color-accent)] focus:ring-opacity-50 flex items-center justify-center">
+                            Generate
+                        </button>
+                    </div>
+
+                    <div id="skill-output-area" class="mt-8">
+                        <!-- AI output will render here -->
+                        <div id="skill-loading-indicator" class="hidden text-center text-[var(--color-accent)]">
+                            <i data-lucide="loader-2" class="w-6 h-6 animate-spin mx-auto mb-2"></i>
+                            Generating personalized skill path...
+                        </div>
+                        <div id="skill-output-content" class="bg-[var(--color-base)] p-6 rounded-lg border border-white/10 hidden text-white whitespace-pre-line leading-relaxed">
+                            <!-- Content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- 4. HOW IT WORKS SECTION -->
+       
+        <section id="how-it-works" class="py-24 bg-[var(--color-surface)]" aria-label="Process Steps">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl sm:text-5xl font-extrabold text-white mb-4">Simple Steps to Enterprise Skill Mastery</h2>
+                    <p class="text-xl text-[var(--color-subtle)] max-w-3xl mx-auto">From identification to application, our process is proven to drive measurable ROI.</p>
+                </div>
+
+                <div class="flex flex-col lg:flex-row justify-between items-center space-y-12 lg:space-y-0 lg:space-x-12">
+                    <!-- Step 1: Assess -->
+                    <div class="text-center max-w-sm">
+                        <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center rounded-full bg-[var(--color-accent)]/20 border-4 border-[var(--color-accent)] text-white text-3xl font-bold">1</div>
+                        <i data-lucide="bar-chart-3" class="w-12 h-12 text-[var(--color-accent)] mb-4 inline-block"></i>
+                        <h3 class="text-2xl font-bold text-white mb-2">Identify Gaps</h3>
+                        <p class="text-[var(--color-subtle)]">Utilize our platform diagnostics to accurately map current team capabilities against future needs.</p>
+                    </div>
+
+                    <!-- Separator (Desktop) -->
+                    <div class="hidden lg:block w-0 h-20 border-l border-dashed border-white/20"></div>
+
+                    <!-- Step 2: Learn -->
+                    <div class="text-center max-w-sm">
+                        <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center rounded-full bg-[var(--color-accent)]/20 border-4 border-[var(--color-accent)] text-white text-3xl font-bold">2</div>
+                        <i data-lucide="graduation-cap" class="w-12 h-12 text-[var(--color-accent)] mb-4 inline-block"></i>
+                        <h3 class="text-2xl font-bold text-white mb-2">Execute Training</h3>
+                        <p class="text-[var(--color-subtle)]">Teams follow personalized paths, complete hands-on labs, and receive instant feedback.</p>
+                    </div>
+
+                    <!-- Separator (Desktop) -->
+                    <div class="hidden lg:block w-0 h-20 border-l border-dashed border-white/20"></div>
+
+                    <!-- Step 3: Apply -->
+                    <div class="text-center max-w-sm">
+                        <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center rounded-full bg-[var(--color-accent)]/20 border-4 border-[var(--color-accent)] text-white text-3xl font-bold">3</div>
+                        <i data-lucide="rocket" class="w-12 h-12 text-[var(--color-accent)] mb-4 inline-block"></i>
+                        <h3 class="text-2xl font-bold text-white mb-2">Measure & Deploy</h3>
+                        <p class="text-[var(--color-subtle)]">Track measurable progress, confirm mastery, and deploy newly acquired skills back into production.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- 5. PRICING SECTION -->
+        <section id="pricing" class="py-24 bg-[var(--color-base)]" aria-label="Our Pricing Plans">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl sm:text-5xl font-extrabold text-white mb-4">Flexible Plans for Every Team Size</h2>
+                    <p class="text-xl text-[var(--color-subtle)] max-w-3xl mx-auto">Start small or scale globally. No long-term commitments for Starter and Pro tiers.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Tier 1: Starter -->
+                    <div class="bg-[var(--color-surface)] p-8 rounded-xl border border-white/10 transition duration-300 hover:border-white/20">
+                        <h3 class="text-2xl font-bold text-white mb-2">Starter</h3>
+                        <p class="text-[var(--color-subtle)] mb-6">Best for small teams exploring new skills.</p>
+                        <p class="text-5xl font-extrabold text-white mb-1"><span class="text-3xl font-medium">$50</span> / user / mo</p>
+                        <p class="text-sm text-[var(--color-subtle)] mb-8">Billed Annually. Up to 10 users.</p>
+                        
+                        <a href="#contact" class="w-full block text-center px-5 py-3 text-lg font-semibold text-white bg-white/20 rounded-lg transition duration-300 hover:bg-white/30 focus:outline-none focus:ring-4 focus:ring-white/50">
+                            Start Trial
+                        </a>
+
+                        <ul class="mt-8 space-y-4 text-white">
+                            <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-[var(--color-accent)] mr-3"></i> Core skill paths library</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-[var(--color-accent)] mr-3"></i> Real-time feedback engine</li>
+                            <li class="flex items-center"><i data-lucide="x" class="w-5 h-5 text-[var(--color-subtle)] mr-3"></i> Dedicated Account Manager</li>
+                            <li class="flex items-center"><i data-lucide="x" class="w-5 h-5 text-[var(--color-subtle)] mr-3"></i> Single Sign-On (SSO)</li>
+                        </ul>
+                    </div>
+
+                    <!-- Tier 2: Pro (Featured) -->
+                    <div class="bg-[var(--color-surface)] p-8 rounded-xl border-4 border-[var(--color-accent)] shadow-2xl shadow-[var(--color-accent)]/20 relative">
+                        <span class="absolute top-0 right-0 -mt-3 mr-6 px-3 py-1 text-xs font-bold uppercase text-[var(--color-base)] bg-[var(--color-accent)] rounded-full">Most Popular</span>
+                        <h3 class="text-2xl font-bold text-white mb-2">Pro</h3>
+                        <p class="text-[var(--color-subtle)] mb-6">Ideal for growing teams with enterprise needs.</p>
+                        <p class="text-5xl font-extrabold text-white mb-1"><span class="text-3xl font-medium">$99</span> / user / mo</p>
+                        <p class="text-sm text-[var(--color-subtle)] mb-8">Billed Annually. 11 - 500 users.</p>
+                        
+                        <a href="#contact" class="w-full block text-center px-5 py-3 text-lg font-semibold text-[var(--color-base)] bg-[var(--color-accent)] rounded-lg transition duration-300 hover:bg-opacity-90 focus:outline-none focus:ring-4 focus:ring-[var(--color-accent)] focus:ring-opacity-50">
+                            Get Pro
+                        </a>
+
+                        <ul class="mt-8 space-y-4 text-white">
+                            <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-[var(--color-accent)] mr-3"></i> **All Starter features**</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-[var(--color-accent)] mr-3"></i> Advanced enterprise reporting</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-[var(--color-accent)] mr-3"></i> Dedicated Implementation Support</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-[var(--color-accent)] mr-3"></i> Custom integration APIs</li>
+                        </ul>
+                    </div>
+
+                    <!-- Tier 3: Enterprise -->
+                    <div class="bg-[var(--color-surface)] p-8 rounded-xl border border-white/10 transition duration-300 hover:border-white/20">
+                        <h3 class="text-2xl font-bold text-white mb-2">Enterprise</h3>
+                        <p class="text-[var(--color-subtle)] mb-6">For large organizations requiring maximum security & scale.</p>
+                        <p class="text-5xl font-extrabold text-white mb-1">Custom</p>
+                        <p class="text-sm text-[var(--color-subtle)] mb-8">Unlimited users & custom SLAs.</p>
+                        
+                        <a href="#contact" class="w-full block text-center px-5 py-3 text-lg font-semibold text-white border-2 border-[var(--color-accent)] rounded-lg transition duration-300 hover:bg-[var(--color-accent)]/10 focus:outline-none focus:ring-4 focus:ring-[var(--color-accent)] focus:ring-opacity-50">
+                            Contact Sales
+                        </a>
+
+                        <ul class="mt-8 space-y-4 text-white">
+                            <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-[var(--color-accent)] mr-3"></i> **All Pro features**</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-[var(--color-accent)] mr-3"></i> Single Sign-On (SSO/SAML)</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-[var(--color-accent)] mr-3"></i> Custom Data Residency</li>
+                            <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 text-[var(--color-accent)] mr-3"></i> Dedicated 24/7/365 support</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- 6. TESTIMONIALS SECTION -->
+        <section id="testimonials" class="py-24 bg-[var(--color-surface)]" aria-label="Customer Testimonials">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl sm:text-5xl font-extrabold text-white mb-12">What Our Clients Say</h2>
+                
+                <div id="testimonial-carousel" class="relative">
+                    <div class="bg-[var(--color-base)] p-8 sm:p-12 rounded-xl shadow-lg border border-white/10">
+                        <i data-lucide="quote" class="w-10 h-10 text-[var(--color-accent)] mx-auto mb-6"></i>
+                        <blockquote id="testimonial-quote" class="text-2xl italic text-white mb-6 transition duration-500 ease-in-out min-h-[150px] flex items-center justify-center">
+                            "Skill Craft is the only platform that truly bridges the gap between theoretical knowledge and practical, deployable skills. Our deployment cycles are 30% faster."
+                        </blockquote>
+                        <cite id="testimonial-author" class="block font-semibold text-[var(--color-accent)] not-italic">
+                            Alex R. - CTO, Global FinTech
+                        </cite>
+                        <span id="testimonial-company" class="block text-sm text-[var(--color-subtle)]">
+                            (Testimonial 1 of 3)
+                        </span>
+                    </div>
+
+                    <!-- Navigation Controls -->
+                    <button id="prev-testimonial" aria-label="Previous testimonial" class="absolute left-0 top-1/2 transform -translate-y-1/2 -ml-6 p-3 bg-[var(--color-surface)] text-[var(--color-accent)] rounded-full border border-white/10 hover:bg-white/10 transition duration-200 focus:outline-none focus:ring-4 focus:ring-[var(--color-accent)]">
+                        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                    </button>
+                    <button id="next-testimonial" aria-label="Next testimonial" class="absolute right-0 top-1/2 transform -translate-y-1/2 -mr-6 p-3 bg-[var(--color-surface)] text-[var(--color-accent)] rounded-full border border-white/10 hover:bg-white/10 transition duration-200 focus:outline-none focus:ring-4 focus:ring-[var(--color-accent)]">
+                        <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                    </button>
+
+                    <!-- Indicators -->
+                    <div id="testimonial-indicators" class="flex justify-center mt-6 space-x-2">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- 7. RESOURCES SECTION -->
+        <section id="resources" class="py-24 bg-[var(--color-base)]" aria-label="Company Resources">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl sm:text-5xl font-extrabold text-white mb-4">Deep Dive into Our Knowledge Base</h2>
+                    <p class="text-xl text-[var(--color-subtle)] max-w-3xl mx-auto">Explore articles, documentation, and frequently asked questions.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <a href="#" class="block bg-[var(--color-surface)] p-6 rounded-xl border border-white/10 transition duration-300 hover:border-[var(--color-accent)]/50 group focus:outline-none focus:ring-4 focus:ring-[var(--color-accent)]">
+                        <i data-lucide="newspaper" class="w-8 h-8 text-[var(--color-accent)] mb-3 transition duration-300 group-hover:scale-110"></i>
+                        <h3 class="text-xl font-bold text-white mb-1">The Skill Craft Blog</h3>
+                        <p class="text-[var(--color-subtle)] text-sm">Latest insights on talent development, AI in learning, and tech trends.</p>
+                        <span class="text-[var(--color-accent)] text-sm font-semibold mt-2 block group-hover:underline">Read Now &rarr;</span>
+                    </a>
+
+                    <a href="#" class="block bg-[var(--color-surface)] p-6 rounded-xl border border-white/10 transition duration-300 hover:border-[var(--color-accent)]/50 group focus:outline-none focus:ring-4 focus:ring-[var(--color-accent)]">
+                        <i data-lucide="book-open-check" class="w-8 h-8 text-[var(--color-accent)] mb-3 transition duration-300 group-hover:scale-110"></i>
+                        <h3 class="text-xl font-bold text-white mb-1">Developer Documentation</h3>
+                        <p class="text-[var(--color-subtle)] text-sm">Full API reference, integration guides, and platform maintenance info.</p>
+                        <span class="text-[var(--color-accent)] text-sm font-semibold mt-2 block group-hover:underline">Explore Docs &rarr;</span>
+                    </a>
+                    
+                    <button type="button" onclick="document.getElementById('chat-bubble').click();" class="block text-left bg-[var(--color-surface)] p-6 rounded-xl border border-white/10 transition duration-300 hover:border-[var(--color-accent)]/50 group focus:outline-none focus:ring-4 focus:ring-[var(--color-accent)]">
+                        <i data-lucide="help-circle" class="w-8 h-8 text-[var(--color-accent)] mb-3 transition duration-300 group-hover:scale-110"></i>
+                        <h3 class="text-xl font-bold text-white mb-1">Ask the FAQ Bot</h3>
+                        <p class="text-[var(--color-subtle)] text-sm">Get instant answers on pricing, security, and support from our AI assistant.</p>
+                        <span class="text-[var(--color-accent)] text-sm font-semibold mt-2 block group-hover:underline">Chat Now &rarr;</span>
+                    </button>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- 8. CONTACT / CTA BAND -->
+        <section id="contact" class="py-24 bg-[var(--color-surface)] relative overflow-hidden" aria-label="Contact Us">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    
+                    <!-- Left: Text & Social Proof -->
+                    <div class="lg:pr-12">
+                        <h2 class="text-4xl sm:text-5xl font-extrabold text-white mb-4">Ready to Skill Up?</h2>
+                        <p class="text-xl text-[var(--color-subtle)] mb-8">Schedule a personalized consultation to see how Skill Craft Technology can transform your team’s capabilities.</p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center text-white">
+                                <i data-lucide="users" class="w-6 h-6 text-[var(--color-accent)] mr-3 flex-shrink-0"></i>
+                                <span class="font-semibold">350+ Enterprise Clients</span> trust our platform.
+                            </div>
+                            <div class="flex items-center text-white">
+                                <i data-lucide="shield-check" class="w-6 h-6 text-[var(--color-accent)] mr-3 flex-shrink-0"></i>
+                                <span class="font-semibold">SOC 2 Type II Certified</span> for maximum data security.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Short Contact Form -->
+                    <div class="p-8 bg-[var(--color-base)] rounded-xl border border-white/10 shadow-2xl">
+                        <form onsubmit="event.preventDefault(); document.getElementById('contact-status').textContent='Thanks! We’ll be in touch.'; document.getElementById('contact-status').classList.remove('hidden');" aria-label="Contact form for demo request">
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-[var(--color-subtle)] mb-1">Full Name</label>
+                                    <input type="text" id="name" name="name" required class="w-full p-3 bg-[var(--color-surface)] border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] transition">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-[var(--color-subtle)] mb-1">Work Email</label>
+                                    <input type="email" id="email" name="email" required class="w-full p-3 bg-[var(--color-surface)] border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] transition">
+                                </div>
+                                <div>
+                                    <label for="company" class="block text-sm font-medium text-[var(--color-subtle)] mb-1">Company Name</label>
+                                    <input type="text" id="company" name="company" required class="w-full p-3 bg-[var(--color-surface)] border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] transition">
+                                </div>
+                                
+                                <button type="submit" class="w-full px-5 py-3 text-lg font-semibold text-[var(--color-base)] bg-[var(--color-accent)] rounded-lg transition duration-300 hover:bg-opacity-90 focus:outline-none focus:ring-4 focus:ring-[var(--color-accent)] focus:ring-opacity-50 mt-4">
+                                    Request Demo
+                                </button>
+
+                                <p id="contact-status" class="text-sm text-[var(--color-accent)] text-center mt-3 hidden" aria-live="polite"></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================================== -->
+    <!-- FOOTER -->
+    <footer class="bg-[var(--color-base)] border-t border-white/10 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
+                
+                <!-- Brand Info -->
+                <div class="col-span-2 md:col-span-2">
+                    <h4 class="text-2xl font-extrabold text-white mb-4"><span class="text-[var(--color-accent)]">Skill</span> Craft</h4>
+                    <p class="text-sm text-[var(--color-subtle)] mb-4">Empowering the world's leading tech teams through skill mastery.</p>
+                    <p class="text-sm text-[var(--color-subtle)]">123 Tech Drive, Silicon Valley, CA 94000</p>
+                </div>
+
+                <!-- Sitemap: Product -->
+                <div>
+                    <h5 class="text-md font-semibold text-white mb-4">Product</h5>
+                    <ul class="space-y-3 text-sm text-[var(--color-subtle)]">
+                        <li><a href="#solutions" class="hover:text-[var(--color-accent)] transition">Solutions</a></li>
+                        <li><a href="#pricing" class="hover:text-[var(--color-accent)] transition">Pricing</a></li>
+                        <li><a href="#" class="hover:text-[var(--color-accent)] transition">API Docs</a></li>
+                        <li><a href="#" class="hover:text-[var(--color-accent)] transition">Status</a></li>
+                    </ul>
+                </div>
+
+                <!-- Sitemap: Company -->
+                <div>
+                    <h5 class="text-md font-semibold text-white mb-4">Company</h5>
+                    <ul class="space-y-3 text-sm text-[var(--color-subtle)]">
+                        <li><a href="#testimonials" class="hover:text-[var(--color-accent)] transition">Careers</a></li>
+                        <li><a href="#" class="hover:text-[var(--color-accent)] transition">About Us</a></li>
+                        <li><a href="#contact" class="hover:text-[var(--color-accent)] transition">Contact Sales</a></li>
+                        <li><a href="#resources" class="hover:text-[var(--color-accent)] transition">Resources</a></li>
+                    </ul>
+                </div>
+
+                <!-- Sitemap: Legal -->
+                <div>
+                    <h5 class="text-md font-semibold text-white mb-4">Legal</h5>
+                    <ul class="space-y-3 text-sm text-[var(--color-subtle)]">
+                        <li><a href="#" class="hover:text-[var(--color-accent)] transition">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-[var(--color-accent)] transition">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-[var(--color-accent)] transition">Security</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center text-sm text-[var(--color-subtle)]">
+                <p>&copy; <span id="current-year"></span> Skill Craft Technology. All rights reserved.</p>
+                <div class="flex space-x-4 mt-4 sm:mt-0">
+                    <!-- Social Icons (Placeholders) -->
+                    <a href="#" aria-label="LinkedIn" class="hover:text-[var(--color-accent)] transition"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                    <a href="#" aria-label="Twitter" class="hover:text-[var(--color-accent)] transition"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                    <a href="#" aria-label="GitHub" class="hover:text-[var(--color-accent)] transition"><i data-lucide="github" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ============================================== -->
+    <!-- GEMINI FAQ CHAT BOT (Floating UI) -->
+    <div class="fixed bottom-6 right-6 z-9999">
+        
+        <!-- Chat Bubble / Toggle Button -->
+        <button id="chat-bubble" aria-controls="chat-panel" aria-expanded="false" class="w-16 h-16 rounded-full bg-[var(--color-accent)] text-[var(--color-base)] flex items-center justify-center shadow-2xl transition duration-300 transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-[var(--color-accent)] focus:ring-opacity-50">
+            <i id="chat-icon" data-lucide="message-square" class="w-8 h-8 transition duration-300"></i>
+        </button>
+
+        <!-- Chat Panel -->
+        <div id="chat-panel" role="region" aria-label="AI Chat Assistant" class="absolute bottom-0 right-0 mb-20 w-[90vw] max-w-sm bg-[var(--color-base)] rounded-xl transform translate-y-2 opacity-0 pointer-events-none transition duration-300 flex flex-col">
+            
+            <!-- Header -->
+            <div class="p-4 bg-[var(--color-surface)] border-b border-white/10 rounded-t-xl flex justify-between items-center">
+                <div class="flex items-center">
+                    <span class="relative flex h-3 w-3 mr-3">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-accent)] opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-[var(--color-accent)]"></span>
+                    </span>
+                    <h3 class="text-lg font-semibold text-white">Skill Craft AI</h3>
+                </div>
+                <button id="chat-close" aria-label="Close chat" class="text-white hover:text-[var(--color-accent)] transition p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Messages Container -->
+            <div id="chat-messages" class="flex-grow p-4 space-y-4 overflow-y-auto custom-scrollbar" style="height: 350px;">
+                <!-- Initial Welcome Message -->
+                <div class="flex justify-start">
+                    <div class="chat-message-ai p-3 rounded-xl rounded-tl-none max-w-xs shadow-md">
+                        <p class="text-white text-sm">Hello! I'm Skill Craft AI. I can answer questions about our platform, pricing, security, and more. How can I help you today?</p>
+                        <p class="text-[var(--color-subtle)] text-xs mt-1">AI Assistant</p>
+                    </div>
+                </div>
+
+                <!-- Quick Action Chips (Gemini prompt seeds) -->
+                <div id="chat-chips" class="flex flex-wrap gap-2 pt-2">
+                    <!-- Chips are populated by JS -->
+                </div>
+            </div>
+
+            <!-- Typing Indicator -->
+            <div id="typing-indicator" class="px-4 pb-2 hidden">
+                <div class="flex items-center space-x-1">
+                    <div class="h-2 w-2 bg-[var(--color-accent)] rounded-full animate-bounce delay-100"></div>
+                    <div class="h-2 w-2 bg-[var(--color-accent)] rounded-full animate-bounce delay-200"></div>
+                    <div class="h-2 w-2 bg-[var(--color-accent)] rounded-full animate-bounce delay-300"></div>
+                    <span class="text-xs text-[var(--color-subtle)] ml-2">AI is typing...</span>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="p-4 border-t border-white/10">
+                <div id="chat-controls" class="flex items-center">
+                    <input type="text" id="chat-input" placeholder="Ask a question..." class="flex-grow p-3 bg-[var(--color-surface)] border border-white/10 rounded-lg text-white placeholder-[var(--color-subtle)] focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] transition mr-2" aria-label="Type your question here">
+                    <button id="chat-submit" aria-label="Send message" class="p-3 bg-[var(--color-accent)] text-[var(--color-base)] rounded-lg transition duration-200 hover:bg-opacity-90 focus:outline-none focus:ring-4 focus:ring-[var(--color-accent)] focus:ring-opacity-50">
+                        <i data-lucide="send" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                
+                <!-- Utilities/Disclaimer -->
+                <div class="flex justify-between items-center text-xs mt-2">
+                    <button id="chat-clear" class="text-red-400 hover:text-red-300 focus:outline-none focus:underline">Clear chat</button>
+                    <span class="text-[var(--color-subtle)]">AI assistant. Don't share sensitive info.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ============================================== -->
+    <!-- JAVASCRIPT LOGIC -->
+    
+    <script>
+        // --- 0. Initial Setup ---
+        // Replace this with your actual Firebase config from the environment
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        
+        // This MUST be the empty string as per instructions
+        const GEMINI_API_KEY = "AIzaSyD92aqe2INn0dHF7UfXmJtZqouHw57-EqI";
+        const GEMINI_MODEL = "gemini-2.5-flash-preview-09-2025";
+        const API_BASE_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
+        
+        let db, auth, userId, isAuthReady = false;
+
+        // Load Lucide icons
+        lucide.createIcons();
+
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // ----------------------------------------------------
+        // FIREBASE & AUTH SETUP (Mandatory Environment Requirement)
+        async function initializeFirebase() {
+            try {
+                // Dynamic imports for the required Firebase modules
+                const { initializeApp } = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js");
+                const { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js");
+                const { getFirestore, setLogLevel } = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js");
+                
+                // Set Firestore logging level to Debug
+                setLogLevel('Debug');
+
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        isAuthReady = true;
+                    } else {
+                        // Attempt to sign in with custom token or anonymously
+                        try {
+                            if (initialAuthToken) {
+                                const userCredential = await signInWithCustomToken(auth, initialAuthToken);
+                                userId = userCredential.user.uid;
+                            } else {
+                                const userCredential = await signInAnonymously(auth);
+                                userId = userCredential.user.uid;
+                            }
+                        } catch (error) {
+                            console.error("Firebase Auth Error:", error);
+                            // Fallback to anonymous ID if auth fails completely
+                            userId = 'anon-' + (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15));
+                        }
+                    }
+                    isAuthReady = true;
+                    console.log("Auth Ready. User ID:", userId);
+                    // Since this app doesn't use Firestore, no further data fetching needed here.
+                });
+            } catch (error) {
+                console.error("Firebase SDK Initialization Failed:", error);
+                userId = 'anon-fallback-' + Math.random().toString(36).substring(2, 15);
+                isAuthReady = true;
+            }
+        }
+
+        // --- 1. Hero Backdrop & A11y ---
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const heroSection = document.getElementById('hero');
+        const particleContainer = document.getElementById('particle-container');
+        const blobContainer = document.getElementById('blob-container');
+        const numParticles = prefersReducedMotion ? 0 : 30; // Respect preference
+
+        // 1.1 Particle System (Layer 3)
+        function createParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            const size = Math.random() * 3 + 1; // 1px to 4px
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${x}px`;
+            particle.style.top = `${y}px`;
+            
+            // Random initial velocity and slow drift speed
+            const dx = (Math.random() - 0.5) * 0.1;
+            const dy = (Math.random() - 0.5) * 0.1;
+            
+            let currentX = x;
+            let currentY = y;
+            
+            const animate = () => {
+                if (!prefersReducedMotion) {
+                    currentX += dx;
+                    currentY += dy;
+                    
+                    // Simple wrapping logic
+                    if (currentX < -size) currentX = heroSection.offsetWidth;
+                    if (currentX > heroSection.offsetWidth) currentX = -size;
+                    if (currentY < -size) currentY = heroSection.offsetHeight;
+                    if (currentY > heroSection.offsetHeight) currentY = -size;
+                    
+                    particle.style.transform = `translate(${currentX - x}px, ${currentY - y}px)`;
+                    requestAnimationFrame(animate);
+                }
+            };
+
+            // Set up initial position within the container
+            particle.style.transform = `translate(0px, 0px)`;
+            
+            particleContainer.appendChild(particle);
+            if (!prefersReducedMotion) {
+                animate();
+            }
+        }
+
+        function initParticles() {
+            if (prefersReducedMotion) return;
+            
+            const rect = heroSection.getBoundingClientRect();
+            for (let i = 0; i < numParticles; i++) {
+                const x = Math.random() * rect.width;
+                const y = Math.random() * rect.height;
+                createParticle(x, y);
+            }
+        }
+
+        // 1.2 Blob Parallax (Layer 2)
+        function handleParallax(e) {
+            if (prefersReducedMotion || !blobContainer) return;
+
+            const rect = blobContainer.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            // Normalize mouse position (-0.5 to 0.5)
+            const normalizedX = (mouseX / rect.width) - 0.5;
+            const normalizedY = (mouseY / rect.height) - 0.5;
+
+            // Apply slight opposing movement to the blobs
+            const blob1 = document.getElementById('blob-1');
+            const blob2 = document.getElementById('blob-2');
+
+            if (blob1) blob1.style.transform = `translate(${normalizedX * 40}px, ${normalizedY * 40}px)`; // 40px shift max
+            if (blob2) blob2.style.transform = `translate(${-normalizedX * 50}px, ${-normalizedY * 50}px)`; // 50px shift max
+        }
+        
+        // --- 2. Navigation Logic (Sticky & Active Highlight) ---
+
+        const nav = document.getElementById('main-nav');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('main section');
+        const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        const focusableElements = 'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+        // 2.1 Intersection Observer for Active Link
+        const observerOptions = {
+            root: null, // viewport
+            rootMargin: "0px 0px -50% 0px", // Highlight section when 50% into view
+            threshold: 0,
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = entry.target.id;
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('data-section') === sectionId) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => observer.observe(section));
+
+        // 2.2 Sticky Nav Style Change on Scroll
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-[var(--color-surface)]', 'shadow-xl', 'py-3');
+                nav.classList.remove('bg-transparent', 'py-4');
+            } else {
+                nav.classList.remove('bg-[var(--color-surface)]', 'shadow-xl', 'py-3');
+                nav.classList.add('bg-transparent', 'py-4');
+            }
+        });
+
+        // 2.3 Mobile Menu Logic (Toggle, Focus Trap, Scroll Lock)
+        function toggleMobileMenu(open) {
+            const isOpen = open !== undefined ? open : mobileMenuPanel.classList.contains('translate-x-0');
+            
+            if (!isOpen) {
+                // Open menu
+                mobileMenuPanel.classList.add('translate-x-0');
+                mobileMenuPanel.classList.remove('-translate-x-full');
+                document.body.classList.add('mobile-menu-open');
+                mobileMenuButton.setAttribute('aria-expanded', 'true');
+                document.getElementById('hamburger-icon').classList.add('hidden');
+                document.getElementById('close-icon').classList.remove('hidden');
+                
+                // Set initial focus to the close button
+                mobileMenuClose.focus();
+                
+                document.addEventListener('keydown', trapFocus);
+            } else {
+                // Close menu
+                mobileMenuPanel.classList.remove('translate-x-0');
+                mobileMenuPanel.classList.add('-translate-x-full');
+                document.body.classList.remove('mobile-menu-open');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                document.getElementById('hamburger-icon').classList.remove('hidden');
+                document.getElementById('close-icon').classList.add('hidden');
+                
+                // Restore focus to the button that opened it
+                mobileMenuButton.focus();
+                
+                document.removeEventListener('keydown', trapFocus);
+            }
+        }
+        
+        function trapFocus(e) {
+            if (e.key === 'Escape') {
+                toggleMobileMenu(true);
+                return;
+            }
+            if (e.key !== 'Tab') return;
+
+            const focusableContent = mobileMenuPanel.querySelectorAll(focusableElements);
+            const firstFocusableEl = focusableContent[0];
+            const lastFocusableEl = focusableContent[focusableContent.length - 1];
+
+            if (e.shiftKey) { // Shift + Tab
+                if (document.activeElement === firstFocusableEl) {
+                    lastFocusableEl.focus();
+                    e.preventDefault();
+                }
+            } else { // Tab
+                if (document.activeElement === lastFocusableEl) {
+                    firstFocusableEl.focus();
+                    e.preventDefault();
+                }
+            }
+        }
+        
+        mobileMenuButton.addEventListener('click', () => toggleMobileMenu(false));
+        mobileMenuClose.addEventListener('click', () => toggleMobileMenu(true));
+        mobileNavLinks.forEach(link => link.addEventListener('click', () => toggleMobileMenu(true)));
+        
+        // 2.4 Smooth Anchor Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // --- 3. Testimonial Carousel ---
+        const testimonials = [
+            { quote: "Skill Craft is the only platform that truly bridges the gap between theoretical knowledge and practical, deployable skills. Our deployment cycles are 30% faster.", author: "Alex R.", company: "CTO, Global FinTech" },
+            { quote: "The ability to customize learning paths for every role, from junior developer to architect, has revolutionized our internal training efficiency.", author: "Sarah L.", company: "VP of Engineering, HealthTech" },
+            { quote: "We saw a measurable 45% increase in developer confidence and reduction in errors after implementing Skill Craft's real-time feedback loop.", author: "Mark T.", company: "Head of Talent, Fortune 500" },
+        ];
+        let currentTestimonial = 0;
+        
+        const quoteEl = document.getElementById('testimonial-quote');
+        const authorEl = document.getElementById('testimonial-author');
+        const companyEl = document.getElementById('testimonial-company');
+        const prevButton = document.getElementById('prev-testimonial');
+        const nextButton = document.getElementById('next-testimonial');
+        const indicatorsEl = document.getElementById('testimonial-indicators');
+
+        function updateTestimonial(index) {
+            const t = testimonials[index];
+            
+            // Apply fade out/in effect
+            quoteEl.style.opacity = '0';
+            setTimeout(() => {
+                quoteEl.textContent = `"${t.quote}"`;
+                authorEl.textContent = t.author;
+                companyEl.textContent = t.company;
+                quoteEl.style.opacity = '1';
+                
+                updateIndicators(index);
+            }, 300);
+            
+            // Update counter
+            companyEl.textContent = `(${t.company}) (Testimonial ${index + 1} of ${testimonials.length})`;
+        }
+        
+        function updateIndicators(activeIndex) {
+            indicatorsEl.innerHTML = '';
+            testimonials.forEach((_, i) => {
+                const button = document.createElement('button');
+                button.setAttribute('aria-label', `Go to testimonial ${i + 1}`);
+                button.className = `w-3 h-3 rounded-full transition duration-300 ${i === activeIndex ? 'bg-[var(--color-accent)]' : 'bg-white/30 hover:bg-white/50'}`;
+                button.onclick = () => {
+                    currentTestimonial = i;
+                    updateTestimonial(currentTestimonial);
+                };
+                indicatorsEl.appendChild(button);
+            });
+        }
+
+        prevButton.addEventListener('click', () => {
+            currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+            updateTestimonial(currentTestimonial);
+        });
+        
+        nextButton.addEventListener('click', () => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            updateTestimonial(currentTestimonial);
+        });
+
+        // Auto-rotate logic
+        let autoRotateInterval = setInterval(() => {
+            nextButton.click();
+        }, 8000);
+
+        // Pause auto-rotation on hover/focus
+        const carousel = document.getElementById('testimonial-carousel');
+        carousel.addEventListener('mouseenter', () => clearInterval(autoRotateInterval));
+        carousel.addEventListener('mouseleave', () => {
+            autoRotateInterval = setInterval(() => { nextButton.click(); }, 8000);
+        });
+
+
+        // --- 4. Gemini FAQ Chat Bot Logic ---
+
+        const chatBubble = document.getElementById('chat-bubble');
+        const chatPanel = document.getElementById('chat-panel');
+        const chatClose = document.getElementById('chat-close');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+        const chatSubmit = document.getElementById('chat-submit');
+        const chatClear = document.getElementById('chat-clear');
+        const chatChips = document.getElementById('chat-chips');
+        const typingIndicator = document.getElementById('typing-indicator');
+
+        let chatHistory = [];
+        let isChatOpen = false;
+        let isAITyping = false;
+        
+        const CHAT_HISTORY_MAX = 10; // Store last 10 messages
+
+        // System prompt to seed the model with company knowledge
+        const systemPrompt = `You are Skill Craft AI, a confident, modern, and helpful AI assistant for Skill Craft Technology. Your core purpose is to answer FAQ about the company, its products, and pricing.
+        
+        Company Context: Skill Craft Technology helps enterprise teams master in-demand tech skills with guided, hands-on programs.
+        
+        Pricing Tiers:
+        - Starter: $50/user/mo (billed annually). Up to 10 users. Includes Core skill paths, real-time feedback. Does NOT include SSO or Dedicated Account Manager.
+        - Pro: $99/user/mo (billed annually). 11-500 users. Includes all Starter features plus Advanced enterprise reporting, Dedicated Implementation Support, and Custom integration APIs.
+        - Enterprise: Custom pricing. Unlimited users. Includes all Pro features plus Single Sign-On (SSO/SAML), Custom Data Residency, and Dedicated 24/7/365 support.
+        
+        Onboarding: Standard onboarding takes 3-5 business days for Pro users. Enterprise users receive custom white-glove onboarding.
+        Security: SOC 2 Type II Certified. We use industry-standard encryption. We support SSO/SAML for Enterprise tier.
+        Support Hours: Pro and Starter receive 12/5 support (Mon-Fri, 9am-9pm EST). Enterprise receives dedicated 24/7/365 support with custom SLAs.
+        
+        If a question is outside these topics or you cannot answer confidently, suggest they 'Contact Sales via the Contact Form for a more detailed discussion.' Do not generate made-up information. Keep responses concise and professional.`;
+
+        const quickChips = [
+            "What are the pricing tiers?",
+            "How long does onboarding take?",
+            "Do you support SSO/SAML?",
+            "What are your support hours?"
+        ];
+
+        // 4.1 UI Toggles and Focus Trap
+        function toggleChatPanel(open) {
+            isChatOpen = open !== undefined ? open : !isChatOpen;
+            
+            if (isChatOpen) {
+                chatPanel.classList.remove('translate-y-2', 'opacity-0', 'pointer-events-none');
+                chatPanel.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+                chatBubble.setAttribute('aria-expanded', 'true');
+                chatInput.focus();
+                document.addEventListener('keydown', trapChatFocus);
+            } else {
+                chatPanel.classList.add('translate-y-2', 'opacity-0', 'pointer-events-none');
+                chatPanel.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+                chatBubble.setAttribute('aria-expanded', 'false');
+                document.removeEventListener('keydown', trapChatFocus);
+            }
+        }
+        
+        function trapChatFocus(e) {
+            if (e.key === 'Escape') {
+                toggleChatPanel(false);
+                return;
+            }
+            if (e.key !== 'Tab') return;
+
+            const focusableContent = chatPanel.querySelectorAll(focusableElements);
+            const firstFocusableEl = focusableContent[0];
+            const lastFocusableEl = focusableContent[focusableContent.length - 1];
+
+            if (e.shiftKey) { // Shift + Tab
+                if (document.activeElement === firstFocusableEl) {
+                    lastFocusableEl.focus();
+                    e.preventDefault();
+                }
+            } else { // Tab
+                if (document.activeElement === lastFocusableEl) {
+                    firstFocusableEl.focus();
+                    e.preventDefault();
+                }
+            }
+        }
+
+        chatBubble.addEventListener('click', () => toggleChatPanel());
+        chatClose.addEventListener('click', () => toggleChatPanel(false));
+        
+        // 4.2 Message Rendering
+        function appendMessage(text, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `flex ${isUser ? 'justify-end' : 'justify-start'}`;
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = `p-3 rounded-xl max-w-xs shadow-md ${isUser ? 'chat-message-user rounded-br-none' : 'chat-message-ai rounded-tl-none'}`;
+            
+            contentDiv.innerHTML = `<p class="text-sm">${text}</p>`;
+            if (!isUser) {
+                contentDiv.innerHTML += `<p class="text-[var(--color-subtle)] text-xs mt-1">AI Assistant</p>`;
+            }
+            
+            messageDiv.appendChild(contentDiv);
+            chatMessages.appendChild(messageDiv);
+            
+            // Auto-scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function renderHistory() {
+            chatMessages.innerHTML = ''; // Clear existing messages
+            appendMessage("Hello! I'm Skill Craft AI. I can answer questions about our platform, pricing, security, and more. How can I help you today?", false);
+
+            chatHistory.forEach(msg => {
+                appendMessage(msg.text, msg.role === 'user');
+            });
+            
+            // Re-render chips if history is short
+            if (chatHistory.length === 0) {
+                renderChips();
+            } else {
+                chatChips.innerHTML = '';
+            }
+        }
+
+        function renderChips() {
+            chatChips.innerHTML = '';
+            quickChips.forEach(chipText => {
+                const chip = document.createElement('button');
+                chip.textContent = chipText;
+                chip.className = 'px-3 py-1 text-xs font-medium text-[var(--color-accent)] bg-[var(--color-surface)] border border-[var(--color-accent)] rounded-full hover:bg-[var(--color-accent)]/10 transition focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]';
+                chip.onclick = () => {
+                    chatInput.value = chipText;
+                    chatSubmit.click();
+                };
+                chatChips.appendChild(chip);
+            });
+        }
+        
+        // 4.3 API Call (with Exponential Backoff)
+        async function fetchGeminiResponse(userQuery) {
+            if (isAITyping) return;
+            isAITyping = true;
+            typingIndicator.classList.remove('hidden');
+            chatInput.disabled = true;
+            chatSubmit.disabled = true;
+
+            const newHistory = [...chatHistory, { role: 'user', text: userQuery }];
+            
+            const payload = {
+                contents: newHistory.map(msg => ({ 
+                    role: msg.role === 'user' ? 'user' : 'model', 
+                    parts: [{ text: msg.text }] 
+                })),
+                tools: [{ "google_search": {} }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+
+            const maxRetries = 5;
+            let delay = 1000;
+            let responseText = "Sorry, I'm having trouble connecting to the AI. Please try again or contact support.";
+            
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(`${API_BASE_URL}?key=${GEMINI_API_KEY}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        const candidate = result.candidates?.[0];
+                        
+                        if (candidate && candidate.content?.parts?.[0]?.text) {
+                            responseText = candidate.content.parts[0].text;
+                            
+                            // Successful response, break the retry loop
+                            break; 
+                        } else {
+                            // Non-retryable error if response is OK but structure is bad
+                            responseText = "I received an empty response. Please check the query.";
+                            break; 
+                        }
+                    } else if (response.status === 429 || response.status >= 500) {
+                        // Retryable errors (Rate Limit or Server Error)
+                        if (i < maxRetries - 1) {
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                            delay *= 2; // Exponential backoff
+                        } else {
+                            // Max retries reached
+                            responseText = "The AI service is currently overloaded. Please try again in a few moments.";
+                        }
+                    } else {
+                        // Non-retryable client error (e.g., 400 Bad Request)
+                        const errorBody = await response.json();
+                        console.error("Gemini API Non-Retryable Error:", errorBody);
+                        responseText = `A client error occurred: ${errorBody.error.message}`;
+                        break;
+                    }
+
+                } catch (error) {
+                    console.error("Fetch Error:", error);
+                    if (i < maxRetries - 1) {
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        delay *= 2;
+                    } else {
+                        responseText = "A network error occurred. Please check your connection.";
+                    }
+                }
+            }
+
+            // Update state and UI after attempts
+            isAITyping = false;
+            typingIndicator.classList.add('hidden');
+            chatInput.disabled = false;
+            chatSubmit.disabled = false;
+            chatInput.focus();
+
+            // Store the model response and trim history
+            chatHistory.push({ role: 'model', text: responseText });
+            if (chatHistory.length > CHAT_HISTORY_MAX) {
+                chatHistory = chatHistory.slice(-CHAT_HISTORY_MAX);
+            }
+            
+            appendMessage(responseText, false);
+            // Re-render Lucide icons for the new message content
+            lucide.createIcons();
+        }
+
+        // 4.4 Event Handlers
+        function handleChatSubmission() {
+            const query = chatInput.value.trim();
+            if (query === '' || isAITyping) return;
+            
+            // Store user message and render it
+            chatHistory.push({ role: 'user', text: query });
+            if (chatHistory.length > CHAT_HISTORY_MAX) {
+                chatHistory = chatHistory.slice(-CHAT_HISTORY_MAX);
+            }
+            appendMessage(query, true);
+            chatInput.value = ''; // Clear input
+            chatChips.innerHTML = ''; // Hide chips after first interaction
+            
+            // Get AI response
+            fetchGeminiResponse(query);
+        }
+
+        chatSubmit.addEventListener('click', handleChatSubmission);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleChatSubmission();
+            }
+        });
+
+        chatClear.addEventListener('click', () => {
+            chatHistory = [];
+            renderHistory();
+        });
+
+
+        // --- 5. Gemini SkillPath Generator Logic (New Feature) ---
+
+        const skillInput = document.getElementById('skill-input');
+        const generateSkillButton = document.getElementById('generate-skill-button');
+        const skillLoadingIndicator = document.getElementById('skill-loading-indicator');
+        const skillOutputContent = document.getElementById('skill-output-content');
+        
+        // System prompt to generate structured skill path
+        const skillSystemPrompt = `You are Skill Craft Technology's Curriculum Architect AI. Your job is to take a user's requested skill or technology and generate a concise, structured mastery roadmap.
+        Your output MUST be formatted as plain text, starting with a bold summary line, followed by a numbered list of core modules (3-5 items), and ending with estimated time and prerequisites. Use Markdown for bolding and numbered lists.
+
+        Example Output Structure:
+        **Mastery Roadmap: Kubernetes Administration**
+        1. Core Concepts (Pods, Deployments, Services)
+        2. Networking (CNI, Service Mesh basics)
+        3. Storage (Persistent Volumes, Storage Classes)
+        4. Observability (Prometheus, Grafana)
+        5. Security (RBAC, Network Policies)
+        
+        Estimated Time to Mastery: 4-6 months (Pro user pace).
+        Prerequisites: Intermediate knowledge of Linux and Docker.
+
+        Generate the response for the user's requested skill.`;
+
+        async function handleSkillGeneration() {
+            const skillQuery = skillInput.value.trim();
+            if (skillQuery === '') return;
+
+            // UI Setup
+            skillOutputContent.classList.add('hidden');
+            skillLoadingIndicator.classList.remove('hidden');
+            generateSkillButton.disabled = true;
+            skillInput.disabled = true;
+            
+            // Construct Payload for SkillPath
+            const payload = {
+                contents: [{ parts: [{ text: skillQuery }] }],
+                systemInstruction: { parts: [{ text: skillSystemPrompt }] },
+            };
+
+            let responseText = "Could not generate skill path due to an API error. Please try again later.";
+            const maxRetries = 5;
+            let delay = 1000;
+            
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(`${API_BASE_URL}?key=${GEMINI_API_KEY}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        responseText = result.candidates?.[0]?.content?.parts?.[0]?.text || responseText;
+                        break; 
+                    } else if (response.status === 429 || response.status >= 500) {
+                        if (i < maxRetries - 1) {
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                            delay *= 2; 
+                        }
+                    } else {
+                        break;
+                    }
+                } catch (error) {
+                    if (i < maxRetries - 1) {
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        delay *= 2;
+                    } else {
+                        responseText = "Network error occurred.";
+                    }
+                }
+            }
+
+            // Update UI
+            skillLoadingIndicator.classList.add('hidden');
+            skillOutputContent.innerHTML = formatSkillPath(responseText);
+            skillOutputContent.classList.remove('hidden');
+            generateSkillButton.disabled = false;
+            skillInput.disabled = false;
+            
+            // Re-run lucide for the output content in case it contains icons
+            lucide.createIcons();
+        }
+
+        // Simple text formatting for the output (replace \n with <br>, replace ** with <strong> for bolding)
+        function formatSkillPath(text) {
+            let html = text.replace(/\n/g, '<br>');
+            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            return html;
+        }
+
+        generateSkillButton.addEventListener('click', handleSkillGeneration);
+        skillInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSkillGeneration();
+            }
+        });
+
+
+        // --- 6. Initialization ---
+        window.onload = function() {
+            // Initialize all dynamic components
+            initializeFirebase();
+            
+            // 1. Backdrop
+            if (!prefersReducedMotion) {
+                initParticles();
+                document.addEventListener('mousemove', handleParallax);
+            } else {
+                // Ensure a static background on reduced motion
+                heroSection.classList.remove('hero-backdrop-gradient');
+                heroSection.style.background = 'var(--color-base)'; 
+            }
+            
+            // 2. Testimonial
+            updateTestimonial(currentTestimonial);
+
+            // 3. Chat Bot
+            renderHistory(); 
+        };
+
+        
+    </script>
+</body>
+</html>
